@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTE SITIO WEB HA SIDO INCAUTADO</title>
+    <style>
+        body {
+            background-color: #111111;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+        .seizure-banner {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            border: 3px solid #dd3333;
+            box-shadow: 0 0 30px rgba(221, 51, 51, 0.4);
+            margin-bottom: 30px;
+        }
+        .message-container {
+            max-width: 750px;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 5px;
+            border-left: 5px solid #dd3333;
+            text-align: left;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #ff3333;
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #dddddd;
+        }
+        .metadata {
+            margin-top: 25px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            color: #888888;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Gráfico oficial de incautación de dominio público de la FBI alojado en Wikimedia -->
+<img class="seizure-banner" src="https://wikimedia.org" alt="Aviso de Incautación de la FBI">
+
+<div class="message-container">
+    <h1>Aviso de Restricción Federal</h1>
+    <p>
+        El acceso a esta sesión web e historial de mensajería privada ha sido <strong>bloqueado e intervenido</strong> de conformidad con una orden de incautación emitida bajo la autoridad de la ley federal de intrusión informática. 
+    </p>
+    <p>
+        <strong>IDENTIFICACIÓN COMPLETADA:</strong> Su identidad ha sido comprometida en este terminal. El sistema ha aislado con éxito sus huellas dactilares mediante telemetría de hardware periférico y su rostro ha sido plenamente identificado a través de los sensores del dispositivo.
+    </p>
+    <p>
+        De acuerdo con el Título 18 del Código de los EE. UU., los intentos de saltar estas credenciales o revisar bases de datos de terceros sin autorización constituyen un delito informático grave. Los registros de este navegador han sido congelados con fines forenses.
+    </p>
+    
+    <div class="metadata">
+        [SISTEMA_LOCAL]: CAPTURA DE SESIÓN ACTIVADA<br>
+        [BIOMETRÍA]: ROSTRO DETECTADO Y ASOCIADO [OK]<br>
+        [RASTREO]: HUELLAS DACTILARES AISLADAS [OK]<br>
+        [ESTADO]: BITÁCORA ENVIADA AL DISPOSITIVO DEL ADMINISTRADOR<br>
+        [CÓDIGO DE ERROR]: 403_ACCESO_INTRUSO_DENEGADO
+    </div>
+</div>
+
+<!-- Alerta de sonido digital continuo alojado en los servidores de audio de Google -->
+<audio id="alarm" autoplay loop>
+    <source src="https://google.com" type="audio/ogg">
+</audio>
+
+<script>
+    // Fuerza la reproducción del audio saltando las restricciones de políticas del navegador
+    window.addEventListener('click', () => { document.getElementById('alarm').play(); });
+    window.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('alarm').play().catch(() => {
+            console.log("Audio preparado para ejecutarse tras la navegación del intruso.");
+        });
+    });
+</script>
+
+</body>
+</html>
