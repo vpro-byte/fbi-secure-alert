@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESTE SITIO WEB HA SIDO INCAUTADO</title>
+    <title>SISTEMA CENTRAL DE SEGURIDAD - ACCESO DENEGADO</title>
     <style>
         body {
-            background-color: #111111;
+            background-color: #0b0c10;
             color: #ffffff;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -20,79 +20,112 @@
         }
         .seizure-banner {
             width: 100%;
-            max-width: 700px;
+            max-width: 680px;
             height: auto;
-            border: 3px solid #dd3333;
-            box-shadow: 0 0 30px rgba(221, 51, 51, 0.4);
-            margin-bottom: 30px;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            margin-bottom: 25px;
+            animation: pulse-border 2s infinite alternate;
         }
         .message-container {
             max-width: 750px;
-            padding: 20px;
-            background: #1a1a1a;
-            border-radius: 5px;
-            border-left: 5px solid #dd3333;
+            padding: 30px;
+            background: #14161d;
+            border-radius: 6px;
+            border-top: 4px solid #ff0000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
             text-align: left;
         }
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #ff3333;
             margin-top: 0;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 800;
+            border-bottom: 1px solid #ff3333;
+            padding-bottom: 10px;
         }
         p {
             font-size: 1.05rem;
             line-height: 1.6;
-            color: #dddddd;
+            color: #e0e0e0;
         }
-        .metadata {
-            margin-top: 25px;
+        .biometric-scan {
+            background-color: #000000;
+            border: 1px dashed #ff3333;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ff3333;
+        }
+        .scan-title {
+            color: #ff3333;
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .scan-data {
             font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #00ff00;
+            line-height: 1.4;
+        }
+        .legal-notice {
             font-size: 0.85rem;
-            color: #888888;
-            border-top: 1px solid #333;
+            color: #aaaaaa;
+            text-align: justify;
+            border-top: 1px solid #2c2f38;
             padding-top: 15px;
+            margin-top: 15px;
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); border-color: #cc0000; }
+            100% { box-shadow: 0 0 50px rgba(255, 0, 0, 0.8); border-color: #ff3333; }
         }
     </style>
 </head>
 <body>
 
-<!-- Gráfico oficial de incautación de dominio público de la FBI alojado en Wikimedia -->
+<!-- Banner oficial de incautación alojado en los servidores de Wikimedia -->
 <img class="seizure-banner" src="https://wikimedia.org" alt="Aviso de Incautación de la FBI">
 
 <div class="message-container">
-    <h1>Aviso de Restricción Federal</h1>
-    <p>
-        El acceso a esta sesión web e historial de mensajería privada ha sido <strong>bloqueado e intervenido</strong> de conformidad con una orden de incautación emitida bajo la autoridad de la ley federal de intrusión informática. 
-    </p>
-    <p>
-        <strong>IDENTIFICACIÓN COMPLETADA:</strong> Su identidad ha sido comprometida en este terminal. El sistema ha aislado con éxito sus huellas dactilares mediante telemetría de hardware periférico y su rostro ha sido plenamente identificado a través de los sensores del dispositivo.
-    </p>
-    <p>
-        De acuerdo con el Título 18 del Código de los EE. UU., los intentos de saltar estas credenciales o revisar bases de datos de terceros sin autorización constituyen un delito informático grave. Los registros de este navegador han sido congelados con fines forenses.
-    </p>
+    <h1>Alerta de Seguridad Nacional - Intercepción de Terminal</h1>
     
-    <div class="metadata">
-        [SISTEMA_LOCAL]: CAPTURA DE SESIÓN ACTIVADA<br>
-        [BIOMETRÍA]: ROSTRO DETECTADO Y ASOCIADO [OK]<br>
-        [RASTREO]: HUELLAS DACTILARES AISLADAS [OK]<br>
-        [ESTADO]: BITÁCORA ENVIADA AL DISPOSITIVO DEL ADMINISTRADOR<br>
-        [CÓDIGO DE ERROR]: 403_ACCESO_INTRUSO_DENEGADO
+    <p>
+        Este terminal local ha entrado en un **estado de bloqueo preventivo inmediato**. Se ha detectado una violación flagrante de los privilegios de sesión web e intento de exfiltración de comunicaciones privadas cifradas.
+    </p>
+
+    <!-- Panel de simulación de captura en tiempo real (Genera pánico visual) -->
+    <div class="biometric-scan">
+        <div class="scan-title">⚠️ Extracción de Evidencia Pericial en Progreso...</div>
+        <div class="scan-data">
+            [TELEMETRÍA]: Aislamiento dactilar en superficie periférica... COMPLETO<br>
+            [BIOMETRÍA]: Captura óptica facial (Cámara ID 01)... ASIGNADO CON ÉXITO<br>
+            [RED_LOG]: Coordenadas GPS de red y MAC localizadas... REGISTRADO<br>
+            [DESTINO]: Reporte pericial e imágenes transmitidos de forma remota al administrador.
+        </div>
     </div>
+    
+    <p class="legal-notice">
+        <strong>AVISO LEGAL DEL DEPARTAMENTO DE JUSTICIA:</strong> Conforme al Título 18 del Código de los EE. UU. (Ley de Abuso y Fraude Informático), el acceso no autorizado, visualización de credenciales activas o suplantación de identidad en este dispositivo constituye un delito federal grave. El cierre forzado del navegador o el apagado del equipo no interrumpirá el protocolo forense activado.
+    </p>
 </div>
 
-<!-- Alerta de sonido digital continuo alojado en los servidores de audio de Google -->
+<!-- Alerta sonora de reloj digital continuo alojado en los servidores de Google -->
 <audio id="alarm" autoplay loop>
     <source src="https://google.com" type="audio/ogg">
 </audio>
 
 <script>
-    // Fuerza la reproducción del audio saltando las restricciones de políticas del navegador
+    // Sobrepasa las políticas de bloqueo de sonido del navegador al interactuar
     window.addEventListener('click', () => { document.getElementById('alarm').play(); });
     window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('alarm').play().catch(() => {
-            console.log("Audio preparado para ejecutarse tras la navegación del intruso.");
+            console.log("Módulo de audio armado para ejecución forzada.");
         });
     });
 </script>
