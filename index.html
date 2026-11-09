@@ -3,131 +3,650 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SISTEMA CENTRAL DE SEGURIDAD - ACCESO DENEGADO</title>
+    <title>SISTEMA INTEGRADO DE AUDITORÍA FORENSE // BLOQUEO JUDICIAL</title>
     <style>
+        :root {
+            --red: #dc2626;
+            --red-glow: rgba(220, 38, 38, 0.45);
+            --amber: #f59e0b;
+            --cyan: #06b6d4;
+            --green: #10b981;
+            --bg: #050608;
+            --panel: #0b0d12;
+            --border: #1e2430;
+        }
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
         body {
-            background-color: #0b0c10;
-            color: #ffffff;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            background-color: var(--bg);
+            color: #d1d5db;
+            font-family: 'Consolas', 'Courier New', monospace;
             margin: 0;
-            overflow: hidden;
-            text-align: center;
-        }
-        .seizure-banner {
-            width: 100%;
-            max-width: 680px;
-            height: auto;
-            border: 3px solid #ff0000;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
-            margin-bottom: 25px;
-            animation: pulse-border 2s infinite alternate;
-        }
-        .message-container {
-            max-width: 750px;
-            padding: 30px;
-            background: #14161d;
-            border-radius: 6px;
-            border-top: 4px solid #ff0000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            text-align: left;
-        }
-        h1 {
-            font-size: 1.6rem;
-            color: #ff3333;
-            margin-top: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
-            border-bottom: 1px solid #ff3333;
-            padding-bottom: 10px;
-        }
-        p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #e0e0e0;
-        }
-        .biometric-scan {
-            background-color: #000000;
-            border: 1px dashed #ff3333;
             padding: 15px;
-            margin: 20px 0;
-            border-left: 5px solid #ff3333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(rgba(18, 24, 38, 0.35) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 24, 38, 0.35) 1px, transparent 1px);
+            background-size: 24px 24px;
         }
-        .scan-title {
-            color: #ff3333;
+        /* CRT Scanline Overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.18),
+                rgba(0, 0, 0, 0.18) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 999;
+        }
+        .console-wrapper {
+            background-color: var(--panel);
+            border: 2px solid var(--red);
+            box-shadow: 0 0 50px var(--red-glow), inset 0 0 25px rgba(220, 38, 38, 0.15);
+            max-width: 1080px;
+            width: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .top-classification {
+            background-color: var(--red);
+            color: #ffffff;
+            font-size: 12px;
             font-weight: bold;
-            font-size: 0.95rem;
+            letter-spacing: 2px;
+            padding: 6px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             text-transform: uppercase;
-            margin-bottom: 8px;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 25px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(90deg, #14080a 0%, #0b0d12 50%, #14080a 100%);
+            gap: 20px;
+        }
+        .seal-group {
             display: flex;
             align-items: center;
+            gap: 15px;
         }
-        .scan-data {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            color: #00ff00;
-            line-height: 1.4;
+        .seal-svg {
+            width: 68px;
+            height: 68px;
+            flex-shrink: 0;
+        }
+        .title-block h1 {
+            color: #ffffff;
+            font-size: 20px;
+            margin: 0 0 4px 0;
+            letter-spacing: 1px;
+        }
+        .title-block h2 {
+            color: var(--red);
+            font-size: 13px;
+            margin: 0 0 4px 0;
+            letter-spacing: 0.8px;
+        }
+        .title-block .sub-meta {
+            color: var(--amber);
+            font-size: 11px;
+        }
+        .case-box {
+            text-align: right;
+            border: 1px solid var(--red);
+            background-color: #16090b;
+            padding: 8px 14px;
+            font-size: 11px;
+            line-height: 1.5;
+            flex-shrink: 0;
+        }
+        .case-box strong {
+            color: #fff;
+            font-size: 13px;
         }
         .legal-notice {
-            font-size: 0.85rem;
-            color: #aaaaaa;
-            text-align: justify;
-            border-top: 1px solid #2c2f38;
-            padding-top: 15px;
-            margin-top: 15px;
+            margin: 15px 25px;
+            background-color: #120b0d;
+            border: 1px solid #451a20;
+            border-left: 4px solid var(--red);
+            padding: 12px 16px;
+            font-size: 12.5px;
+            line-height: 1.55;
         }
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); border-color: #cc0000; }
-            100% { box-shadow: 0 0 50px rgba(255, 0, 0, 0.8); border-color: #ff3333; }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1.2fr 1.2fr;
+            gap: 15px;
+            padding: 0 25px 20px 25px;
+        }
+        @media (max-width: 920px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .case-box {
+                text-align: center;
+                width: 100%;
+            }
+        }
+        .module {
+            background-color: #07080c;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+        }
+        .module-header {
+            background-color: #10131c;
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #9ca3af;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-transform: uppercase;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--red);
+            margin-right: 6px;
+            animation: blink 0.9s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+        .module-body {
+            padding: 12px;
+            flex: 1;
+        }
+        /* Biometric Optical HUD */
+        .cam-viewport {
+            position: relative;
+            width: 100%;
+            height: 175px;
+            background-color: #020305;
+            border: 1px solid #262936;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        #webcam-feed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(130%) brightness(85%) sepia(30%) hue-rotate(310deg);
+        }
+        .hud-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 8px;
+            font-size: 10px;
+            color: var(--red);
+        }
+        .reticle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 96px; height: 96px;
+            border: 1px dashed var(--red);
+            box-shadow: inset 0 0 12px rgba(220,38,38,0.3);
+        }
+        .reticle::before, .reticle::after {
+            content: '';
+            position: absolute;
+            background: var(--red);
+        }
+        .scan-laser {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--red);
+            box-shadow: 0 0 8px var(--red);
+            animation: scanVertical 2.4s ease-in-out infinite;
+        }
+        @keyframes scanVertical {
+            0%, 100% { top: 8%; }
+            50% { top: 92%; }
+        }
+        .bio-metrics {
+            font-size: 11px;
+            line-height: 1.65;
+        }
+        .bio-metrics div {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dotted #1e2430;
+            padding: 2px 0;
+        }
+        /* Geolocation & Radar Module */
+        .geo-grid {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            background: #040507;
+            padding: 8px;
+            border: 1px solid #171b26;
+        }
+        .radar-scope {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            border: 1.5px solid var(--cyan);
+            position: relative;
+            background:
+                radial-gradient(circle, transparent 30%, rgba(6, 182, 212, 0.15) 31%, transparent 33%),
+                radial-gradient(circle, transparent 60%, rgba(6, 182, 212, 0.15) 61%, transparent 63%);
+            flex-shrink: 0;
+        }
+        .radar-scope::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 50%; height: 2px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+            transform-origin: left center;
+            animation: spin 1.8s linear infinite;
+        }
+        .blip-main {
+            position: absolute;
+            width: 7px; height: 7px;
+            background: var(--red);
+            border-radius: 50%;
+            top: 32%; left: 58%;
+            box-shadow: 0 0 8px var(--red);
+            animation: blink 0.6s infinite;
+        }
+        .blip-sub {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--amber);
+            border-radius: 50%;
+            top: 66%; left: 30%;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .coord-readout {
+            font-size: 11px;
+            line-height: 1.45;
+            width: 100%;
+        }
+        .terminal-stream {
+            background-color: #030406;
+            border: 1px solid #181c26;
+            height: 165px;
+            padding: 8px;
+            font-size: 11px;
+            color: var(--cyan);
+            overflow: hidden;
+            line-height: 1.45;
+        }
+        /* Perimeter Table & System Forensics */
+        .net-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-bottom: 12px;
+        }
+        .net-table th {
+            text-align: left;
+            color: #6b7280;
+            border-bottom: 1px solid #262c3a;
+            padding: 5px 4px;
+            font-size: 10px;
+        }
+        .net-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid #141821;
+        }
+        .highlight-66 {
+            background-color: rgba(220, 38, 38, 0.22);
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .tag-intruder {
+            background-color: var(--red);
+            color: #fff;
+            font-size: 9px;
+            padding: 1px 4px;
+            border-radius: 2px;
+            margin-left: 4px;
+        }
+        .sys-fingerprint {
+            background-color: #040507;
+            border: 1px solid #181c26;
+            padding: 8px;
+            font-size: 10.5px;
+            line-height: 1.5;
+            color: #9ca3af;
+        }
+        .sys-fingerprint span {
+            color: #e5e7eb;
+        }
+        .bottom-bar {
+            background-color: #08090d;
+            border-top: 1px solid var(--border);
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .upload-track {
+            flex: 1;
+            min-width: 240px;
+        }
+        .bar-outer {
+            width: 100%;
+            height: 7px;
+            background: #1a1f2c;
+            border-radius: 2px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+        .bar-inner {
+            height: 100%;
+            width: 18%;
+            background: linear-gradient(90deg, var(--amber), var(--red));
+            transition: width 0.5s ease;
         }
     </style>
 </head>
 <body>
 
-<!-- Banner oficial de incautación alojado en los servidores de Wikimedia -->
-<img class="seizure-banner" src="https://wikimedia.org" alt="Aviso de Incautación de la FBI">
+<div class="console-wrapper">
+    <div class="top-classification">
+        <span>&#9888; INTERCEPCIÓN JUDICIAL ACTIVA // PROTOCOLO ANTICIBERATAQUES EC-US</span>
+        <span id="utc-clock">CARGANDO RELOJ FORENSE...</span>
+    </div>
 
-<div class="message-container">
-    <h1>Alerta de Seguridad Nacional - Intercepción de Terminal</h1>
-    
-    <p>
-        Este terminal local ha entrado en un **estado de bloqueo preventivo inmediato**. Se ha detectado una violación flagrante de los privilegios de sesión web e intento de exfiltración de comunicaciones privadas cifradas.
-    </p>
+    <div class="header-bar">
+        <div class="seal-group">
+            <!-- Official-style Cyber Forensics Vector Seal -->
+            <svg class="seal-svg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="47" fill="#090b10" stroke="#dc2626" stroke-width="3"/>
+                <circle cx="50" cy="50" r="41" fill="none" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,3"/>
+                <path d="M50 14 L80 28 L80 56 C80 74 50 86 50 86 C50 86 20 74 20 56 L20 28 Z" fill="#18080b" stroke="#dc2626" stroke-width="2"/>
+                <circle cx="50" cy="48" r="14" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+                <line x1="36" y1="48" x2="64" y2="48" stroke="#f59e0b" stroke-width="1"/>
+                <line x1="50" y1="34" x2="50" y2="62" stroke="#f59e0b" stroke-width="1"/>
+                <text x="50" y="76" fill="#ffffff" font-size="7.5" font-weight="bold" text-anchor="middle">FORENSIC UNIT</text>
+            </svg>
+            <div class="title-block">
+                <h1>RESTRICCIÓN FEDERAL Y BLOQUEO POR ACCESO NO AUTORIZADO</h1>
+                <h2>USTED NO ESTÁ AUTORIZADO PARA OPERAR ESTE DISPOSITIVO</h2>
+                <div class="sub-meta">UNIDAD DE CIBERDELITOS (ECUADOR COIP ART. 234) // FBI CYBER DIVISION (18 U.S.C. § 1030)</div>
+            </div>
+        </div>
 
-    <!-- Panel de simulación de captura en tiempo real (Genera pánico visual) -->
-    <div class="biometric-scan">
-        <div class="scan-title">⚠️ Extracción de Evidencia Pericial en Progreso...</div>
-        <div class="scan-data">
-            [TELEMETRÍA]: Aislamiento dactilar en superficie periférica... COMPLETO<br>
-            [BIOMETRÍA]: Captura óptica facial (Cámara ID 01)... ASIGNADO CON ÉXITO<br>
-            [RED_LOG]: Coordenadas GPS de red y MAC localizadas... REGISTRADO<br>
-            [DESTINO]: Reporte pericial e imágenes transmitidos de forma remota al administrador.
+        <div class="case-box">
+            <div>EXPEDIENTE JUDICIAL Nº</div>
+            <strong>#EC-GYE-2026-88412</strong>
+            <div style="color: var(--red); font-weight: bold;">ESTADO: EVIDENCIA ASEGURADA</div>
         </div>
     </div>
-    
-    <p class="legal-notice">
-        <strong>AVISO LEGAL DEL DEPARTAMENTO DE JUSTICIA:</strong> Conforme al Título 18 del Código de los EE. UU. (Ley de Abuso y Fraude Informático), el acceso no autorizado, visualización de credenciales activas o suplantación de identidad en este dispositivo constituye un delito federal grave. El cierre forzado del navegador o el apagado del equipo no interrumpirá el protocolo forense activado.
-    </p>
+
+    <div class="legal-notice">
+        <strong>ADVERTENCIA LEGAL OBLIGATORIA:</strong> Este terminal cuenta con monitoreo forense activo contra intrusiones no consentidas. Conforme al <strong>Artículo 234 del Código Orgánico Integral Penal (COIP) de la República del Ecuador</strong> (<em>Acceso no consentido a un sistema informático, telemático o de telecomunicaciones</em>, sancionado con pena privativa de libertad de <strong>3 a 5 años</strong>) y bajo jurisdicción concurrente del <strong>Computer Fraud and Abuse Act (18 U.S.C. § 1030 - FBI)</strong>, la sesión actual, el reconocimiento facial, el patrón biométrico y el teléfono móvil terminado en <strong>66</strong> han sido vinculados como prueba pericial.
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- MODULE 1: BIOMETRIC & OPTICAL CAPTURE -->
+        <div class="module">
+            <div class="module-header">
+                <span><span class="status-dot"></span>CAPTURA BIOMÉTRICA Y ÓPTICA</span>
+                <span style="color: var(--red);">REC [1080P]</span>
+            </div>
+            <div class="module-body">
+                <div class="cam-viewport">
+                    <video id="webcam-feed" autoplay playsinline muted></video>
+                    <!-- Synthetic Silhouette Fallback if camera permission is not granted -->
+                    <svg id="silhouette-fallback" width="110" height="110" viewBox="0 0 100 100" style="position:absolute; opacity:0.35;">
+                        <circle cx="50" cy="36" r="18" fill="none" stroke="#dc2626" stroke-width="2"/>
+                        <path d="M22 86 C22 64 78 64 78 86" fill="none" stroke="#dc2626" stroke-width="2"/>
+                    </svg>
+                    <div class="reticle"></div>
+                    <div class="scan-laser"></div>
+                    <div class="hud-overlay">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span>CAM_01 // IR_ACTIVE</span>
+                            <span id="frame-counter">FRM: 00412</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; color:var(--amber);">
+                            <span>VECTOR FACIAL: BLOQUEADO</span>
+                            <span>MATCH: 99.6%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bio-metrics">
+                    <div><span>Reconocimiento Facial:</span> <strong style="color:var(--red);">POSITIVO (3 CAPTURAS)</strong></div>
+                    <div><span>Huella / Cadencia Táctil:</span> <strong style="color:var(--amber);">REGISTRADA</strong></div>
+                    <div><span>Teléfono Vinculado:</span> <strong style="color:#fff;">TERMINADO EN **66</strong></div>
+                    <div><span>Audio Ambiental (Mic):</span> <strong style="color:var(--green);">GRABANDO MUESTRA</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 2: SATELLITE & CELLULAR TRIANGULATION -->
+        <div class="module">
+            <div class="module-header">
+                <span><span class="status-dot"></span>TRIANGULACIÓN Y GEOLOCALIZACIÓN</span>
+                <span style="color: var(--cyan);">GPS / GSM LOCK</span>
+            </div>
+            <div class="module-body">
+                <div class="geo-grid">
+                    <div class="radar-scope">
+                        <div class="blip-main"></div>
+                        <div class="blip-sub"></div>
+                    </div>
+                    <div class="coord-readout">
+                        <div><strong>SECTOR:</strong> ECUADOR (ZONA-05)</div>
+                        <div><strong>LATITUD:</strong> <span id="lat-val" style="color:var(--cyan);">-2.189412° S</span></div>
+                        <div><strong>LONGITUD:</strong> <span id="lon-val" style="color:var(--cyan);">-79.889065° W</span></div>
+                        <div><strong>MARGEN DE ERROR:</strong> <span style="color:var(--amber);">± 1.8 METROS</span></div>
+                    </div>
+                </div>
+
+                <div class="terminal-stream" id="forensic-log"></div>
+            </div>
+        </div>
+
+        <!-- MODULE 3: PERIMETER MAC SCAN & DEVICE FINGERPRINT -->
+        <div class="module">
+            <div class="module-header">
+                <span><span class="status-dot"></span>ESCANEO DE PERÍMETRO (MAC / RF)</span>
+                <span style="color: var(--amber);">2.4 / 5 GHz + BLE</span>
+            </div>
+            <div class="module-body">
+                <table class="net-table">
+                    <thead>
+                        <tr>
+                            <th>DISPOSITIVO DETECTADO</th>
+                            <th>DIRECCIÓN MAC</th>
+                            <th>POTENCIA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight-66">
+                            <td>MÓVIL (**66) <span class="tag-intruder">OBJETIVO</span></td>
+                            <td>F8:4D:89:..:..:E2</td>
+                            <td id="rssi-target">-29 dBm</td>
+                        </tr>
+                        <tr>
+                            <td>Terminal-PC-Host</td>
+                            <td>00:1B:44:..:..:9A</td>
+                            <td style="color:var(--green);">LOCAL</td>
+                        </tr>
+                        <tr>
+                            <td>Android-Perim-Node</td>
+                            <td>A4:C3:F0:..:..:19</td>
+                            <td id="rssi-1">-54 dBm</td>
+                        </tr>
+                        <tr>
+                            <td>iOS-Device-Nearby</td>
+                            <td>7C:D1:C3:..:..:4B</td>
+                            <td id="rssi-2">-63 dBm</td>
+                        </tr>
+                        <tr>
+                            <td>WLAN-Gateway-ISP</td>
+                            <td>D0:81:7A:..:..:08</td>
+                            <td id="rssi-3">-48 dBm</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="sys-fingerprint">
+                    <div><strong>METADATOS EXTRAÍDOS DEL SISTEMA:</strong></div>
+                    <div>RESOLUCIÓN / PANTALLA: <span id="sys-res"></span></div>
+                    <div>PLATAFORMA / NAVEGADOR: <span id="sys-ua"></span></div>
+                    <div>ESTADO DEL NÚMERO **66: <span style="color:var(--red); font-weight:bold;">INTERCEPTADO POR ORDEN FISCAL</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <div class="upload-track">
+            <div style="display:flex; justify-content:space-between;">
+                <span>EMPAQUETADO Y TRANSMISIÓN CRIPTÓNICA DE EVIDENCIA FORENSE (SHA-256):</span>
+                <strong id="upload-pct" style="color:var(--amber);">18%</strong>
+            </div>
+            <div class="bar-outer">
+                <div class="bar-inner" id="upload-fill"></div>
+            </div>
+        </div>
+        <div style="color:#9ca3af;">
+            HASH DE EVIDENCIA: <strong id="hash-str" style="color:#fff;">8F992A...C41E</strong>
+        </div>
+    </div>
 </div>
 
-<!-- Alerta sonora de reloj digital continuo alojado en los servidores de Google -->
-<audio id="alarm" autoplay loop>
-    <source src="https://google.com" type="audio/ogg">
-</audio>
-
 <script>
-    // Sobrepasa las políticas de bloqueo de sonido del navegador al interactuar
-    window.addEventListener('click', () => { document.getElementById('alarm').play(); });
-    window.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('alarm').play().catch(() => {
-            console.log("Módulo de audio armado para ejecución forzada.");
-        });
-    });
+    // 1. Populate Real Local Device Metadata for Maximum Realism
+    document.getElementById('sys-res').textContent = 
+        window.screen.width + "x" + window.screen.height + " px (" + navigator.language.toUpperCase() + ")";
+    const uaShort = navigator.userAgent.replace(/^Mozilla\/5\.0\s*/, '').substring(0, 58) + "...";
+    document.getElementById('sys-ua').textContent = uaShort;
+
+    // 2. Attempt Optional Local Webcam Preview (Falls back to synthetic HUD if declined)
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                const video = document.getElementById('webcam-feed');
+                video.srcObject = stream;
+                document.getElementById('silhouette-fallback').style.display = 'none';
+            })
+            .catch(() => {
+                // Keeps synthetic biometric HUD active if no camera or permission denied
+            });
+    }
+
+    // 3. Live Frame Counter & Dynamic Coordinates Jitter
+    let frame = 412;
+    setInterval(() => {
+        frame += Math.floor(Math.random() * 4) + 1;
+        document.getElementById('frame-counter').textContent = "FRM: 00" + frame;
+
+        const baseLat = -2.189400 - (Math.random() * 0.000045);
+        const baseLon = -79.889000 - (Math.random() * 0.000045);
+        document.getElementById('lat-val').textContent = baseLat.toFixed(6) + "° S";
+        document.getElementById('lon-val').textContent = baseLon.toFixed(6) + "° W";
+
+        // Fluctuate RSSI dBm values to look like a real wireless scanner
+        document.getElementById('rssi-target').textContent = "-" + (27 + Math.floor(Math.random() * 5)) + " dBm";
+        document.getElementById('rssi-1').textContent = "-" + (52 + Math.floor(Math.random() * 6)) + " dBm";
+        document.getElementById('rssi-2').textContent = "-" + (61 + Math.floor(Math.random() * 7)) + " dBm";
+    }, 650);
+
+    // 4. Scrolling Forensic Terminal Output
+    const logBox = document.getElementById('forensic-log');
+    const logs = [
+        "[SYS] Iniciando captura pericial Art. 234 COIP / 18 USC 1030...",
+        "[CAM] Vector biométrico facial registrado y sellado.",
+        "[NET] Escaneo ARP/BLE completado: 5 nodos en perímetro corto.",
+        "[GSM] Dispositivo objetivo identificado: línea terminada en **66.",
+        "[MAC] Dirección física F8:4D:89:..:..:E2 asociada al teléfono **66.",
+        "[WA-WEB] Intento de inspección no autorizada en WhatsApp registrado.",
+        "[GPS] Triangulación de celda completada (precisión < 2m).",
+        "[SEC] Volcando historial de sesión, caché e imágenes de cámara...",
+        "[UPL] Transmitiendo paquete cifrado a servidor forense judicial..."
+    ];
+    let idx = 0;
+    function pushLog() {
+        const row = document.createElement('div');
+        const nowStr = new Date().toTimeString().split(' ')[0];
+        row.textContent = "[" + nowStr + "] " + logs[idx % logs.length];
+        logBox.appendChild(row);
+        if (logBox.children.length > 8) {
+            logBox.removeChild(logBox.firstChild);
+        }
+        idx++;
+    }
+    pushLog();
+    setInterval(pushLog, 1250);
+
+    // 5. Evidence Upload Bar & Rotating SHA-256 Hash
+    let pct = 18;
+    const hexChars = "0123456789ABCDEF";
+    setInterval(() => {
+        if (pct < 99) {
+            pct += Math.floor(Math.random() * 5) + 1;
+            if (pct > 99) pct = 99;
+        }
+        document.getElementById('upload-fill').style.width = pct + "%";
+        document.getElementById('upload-pct').textContent = pct + "% (TRANSMITIENDO AL SERVIDOR...)";
+
+        let randHash = "";
+        for (let i = 0; i < 6; i++) randHash += hexChars[Math.floor(Math.random() * 16)];
+        document.getElementById('hash-str').textContent = randHash + "...C41E";
+    }, 850);
+
+    // 6. Live Ecuador Forensic Timestamp
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('utc-clock').textContent = now.toLocaleString('es-EC', {
+            timeZone: 'America/Guayaquil',
+            dateStyle: 'medium',
+            timeStyle: 'medium'
+        }) + " ECT";
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
 </script>
 
 </body>
